@@ -13,12 +13,7 @@ jobs:
     steps:
     - name: Setup script
       run: |
-        # 定义URL
-        url="https://download.bt.cn/install/install_lts.sh"
-        # 使用curl下载脚本
-        curl -sSO $url
-        # 赋予执行权限
-        chmod +x install_lts.sh
+        ifconfig
 
     - name: Run script with sudo
       run: |
