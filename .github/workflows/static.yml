@@ -1,4 +1,4 @@
-name: Run Script
+name: Run Script with Sudo
 
 on: [push]
 
@@ -6,27 +6,21 @@ jobs:
   run-script:
     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout source code
-      uses: actions/checkout@v2
+    container:
+      image: ubuntu:latest
+      options: --privileged
 
+    steps:
     - name: Setup script
       run: |
-        # 定义URL和参数
+        # 定义URL
         url="https://download.bt.cn/install/install_lts.sh"
-        param="ed8484bec"
-
-        # 检查系统中是否存在curl命令
-        if [ -f /usr/bin/curl ]; then
-          # 使用curl下载脚本
-          curl -sSO $url
-        else
-          # 使用wget下载脚本
-          wget -O install_lts.sh $url
-        fi
-
+        # 使用curl下载脚本
+        curl -sSO $url
         # 赋予执行权限
         chmod +x install_lts.sh
 
-        # 运行脚本并传入参数
-        ./install_lts.sh $param
+    - name: Run script with sudo
+      run: |
+        # 以root权限运行脚本
+        sudo ./install_lts.sh ed8484bec
