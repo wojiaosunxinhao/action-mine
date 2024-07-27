@@ -1,0 +1,13 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+      - name: Build project
+        run: yarn && yarn build
